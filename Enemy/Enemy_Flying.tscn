@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Enemy/Enemy_Flying.gd" type="Script" id=1]
+[ext_resource path="res://Assets/characters.png" type="Texture" id=2]
+
+[sub_resource type="AtlasTexture" id=15]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 160, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=16]
+animations = [ {
+"frames": [ SubResource( 15 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=17]
+radius = 8.10164
+height = 6.14765
+
+[sub_resource type="CapsuleShape2D" id=18]
+radius = 8.91922
+height = 7.63416
+
+[node name="Enemy_Flying" type="KinematicBody2D"]
+position = Vector2( 648.896, 299.423 )
+script = ExtResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 16 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 5.20278 )
+shape = SubResource( 17 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+enabled = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( -0.0743256, 5.27711 )
+shape = SubResource( 18 )
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
